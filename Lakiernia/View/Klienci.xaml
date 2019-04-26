@@ -1,0 +1,109 @@
+﻿<Page x:Class="Lakiernia.View.Klienci"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:beha="clr-namespace:Lakiernia.View.Behaviors"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:Lakiernia"
+      xmlns:vm="clr-namespace:Lakiernia.View_Model"
+      xmlns:utils="clr-namespace:Lakiernia.Utils"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1200"
+      Title="Klienci">
+
+    <Page.Resources>
+        <beha:Wyszukiwanie x:Key="wyszukiwanie"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Background="#FF453F3F" Margin="0">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Padding="0,3" Text="KLIENCI" FontSize="18"></TextBlock>
+        </Border>
+        <Grid Grid.Row="1" Background="#FFE7E7E7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding SzukanaNazwa, UpdateSourceTrigger=PropertyChanged}" Margin="5,5,0,5">
+                <i:Interaction.Behaviors>
+                    <beha:Wyszukiwanie TekstZachecajacy="{Binding TekstZachecajacy}"/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <Button Grid.Column="1" Command="{Binding ResetujKmd}" Margin="5">Resetuj</Button>
+        </Grid>
+        <DataGrid Grid.Row="2" Name="ListaKlientowDG" ItemsSource="{Binding Klienci}" SelectedItem="{Binding WybranyKlient}" CanUserDeleteRows="False" IsReadOnly="True" CanUserAddRows="False" RowHeaderWidth="0" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Nazwa klienta" Binding="{Binding Nazwa}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                            <Setter Property="TextBlock.FontSize" Value="15" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="BorderThickness" Value="1,0,1,1"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Numer telefonu" Binding="{Binding Telefon}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+                            <Setter Property="TextBlock.FontSize" Value="15" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Width="2*" Header="Adres" Binding="{Binding Adres, Mode=OneWay}"/>
+                <DataGridTextColumn Width="*" Header="Nip" Binding="{Binding Nip}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+                            <Setter Property="TextBlock.FontSize" Value="15" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Rodzaj klienta" Binding="{Binding Typ}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                            <Setter Property="TextBlock.FontSize" Value="15" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch" Margin="0,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="#FFE7E7E7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding NowyKlientKmd}" Grid.Column="1" VerticalContentAlignment="Center" Margin="5,5,5,5" Padding="5, 0, 5, 0">
+                Dodaj
+            </Button>
+            <Button Command="{Binding EdytujKlientaKmd}" Grid.Column="2" Margin="0,5,5,5" Padding="5, 0, 5, 0">
+                Edytuj
+            </Button>
+            <Button Command="{Binding UsunKlientaKmd}" Grid.Column="3" VerticalContentAlignment="Center" Margin="0,5,5,5" Padding="5, 0, 5, 0" Background="#FFC22626" BorderBrush="#FF353535" Foreground="White">
+                Usuń
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

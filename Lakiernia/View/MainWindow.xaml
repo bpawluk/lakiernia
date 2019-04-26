@@ -1,0 +1,99 @@
+﻿<Window x:Class="Lakiernia.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lakiernia"
+        xmlns:converters="clr-namespace:Lakiernia.View.Converters"
+        xmlns:vm="clr-namespace:Lakiernia.View_Model"
+        xmlns:utils="clr-namespace:Lakiernia.Utils"
+        mc:Ignorable="d" WindowState="Maximized"
+        Title="LAKIERNIA" Height="600" Width="1200">
+    <Window.DataContext>
+        <vm:MainWindowVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:GridKonwerter x:Key="gridKonwerter"/>
+        <Style TargetType="Button" x:Key="Nawigacja" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Padding" Value="10,10,10,10"/>
+            <Setter Property="BorderBrush" Value="SlateGray"/>
+            <Setter Property="BorderThickness" Value="5,0,0,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderThickness" Value="10,0,0,0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding SzerokoscMenu, Converter={StaticResource gridKonwerter}, Mode=TwoWay}"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.ColumnSpan="2">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF05C5FF" Offset="0"/>
+                    <GradientStop Color="#FF4EF5FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Foreground="White">
+                LAKIERNIA PROSZKOWA
+            </TextBlock>
+        </Border>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="9" Background="#FFE7E7E7"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="30"/>
+                    <ColumnDefinition Width="170"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.ColumnSpan="2" HorizontalContentAlignment="Center" FontSize="18" Background="SlateGray" Foreground="White" BorderBrush="#FF453F3F">
+                    NAWIGACJA
+                </Label>
+                <Button Command="{Binding SchowajKmd}" Grid.Column="0" BorderThickness="0" Background="PaleVioletRed" Foreground="White" FontSize="14" Content="X"/>
+            </Grid>
+            <Button Grid.Row="1" Margin="0,10,0,5" Style="{StaticResource Nawigacja}" Click="OtworzGlowna">
+                Strona główna
+            </Button>
+            <Button Grid.Row="2" Margin="0,0,0,5" Style="{StaticResource Nawigacja}" Click="OtworzZamowienia">
+                Zamówienia
+            </Button>
+            <Button Grid.Row="3" Margin="0,0,0,5" Style="{StaticResource Nawigacja}" Click="OtworzFarby">
+                Farby
+            </Button>
+            <Button Grid.Row="4" Margin="0,0,0,5" Style="{StaticResource Nawigacja}" Click="OtworzKlienci">
+                Klienci
+            </Button>
+            <Button Grid.Row="5" Margin="0,0,0,5" Style="{StaticResource Nawigacja}" Click="OtworzMaterialy">
+                Materiały
+            </Button>
+            <Button Grid.Row="5" Margin="0,0,0,5" Style="{StaticResource Nawigacja}" Click="OtworzMaterialy">
+                Materiały
+            </Button>
+            <Button Grid.Row="6" Margin="0,0,0,5" Style="{StaticResource Nawigacja}" Click="OtworzPodsumowanie">
+                Podsumowanie
+            </Button>
+            <Button Grid.Row="7" Style="{StaticResource Nawigacja}" Click="OtworzPracodawcy">
+                Dane pracodawcy
+            </Button>
+        </Grid>
+        <Frame Name="Zawartosc" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1" Margin="10, 10, 10, 10"/>
+    </Grid>
+</Window>
